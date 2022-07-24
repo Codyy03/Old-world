@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public static bool isDead;
     [SerializeField] AudioClip hurtSound;
+    [SerializeField] GameObject deadCanvas;
+    [HideInInspector] public float health;
     public int maxHealth;
 
-    private float health;
     PlayerAnimations playerAnimations;
     FightSystem fightSystem;
     AudioManager audioManager;
@@ -23,8 +25,20 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.P))
-            ChangeHealth(-10);
+            ChangeHealth(+10);
 
+        if (health <= 0)
+        {
+            deadCanvas.SetActive(true);
+            Time.timeScale = 0;
+            isDead = true;
+        } else
+        {
+            deadCanvas.SetActive(false);    
+            isDead = false;
+        }
+      
+        
     }
     public void ChangeHealth(float value)
     {
@@ -35,10 +49,12 @@ public class PlayerHealth : MonoBehaviour
         {
             playerAnimations.ChangeAnimationState(playerAnimations.playerHurt);
             audioManager.PlayClip(hurtSound);
+            value += fightSystem.armor * 0.4f;
         }
 
         health = Mathf.Clamp(health + value, 0, maxHealth);
         Player_UI.instance.ChangeHealth(health / maxHealth);
 
+        
     }
 }

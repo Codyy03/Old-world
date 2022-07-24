@@ -35,7 +35,7 @@ public class AddTrapDamage : MonoBehaviour
         {
           //  damageWasDone = true;
            
-            playerHealth.ChangeHealth(-damage + figthSystem.armor * 0.1f);
+            playerHealth.ChangeHealth(-damage );
             damageWasDone = true;
             StartCoroutine(WaitToAddNextDamage());
         }
@@ -47,7 +47,7 @@ public class AddTrapDamage : MonoBehaviour
         {
             //damageWasDone = true;
            
-            playerHealth.ChangeHealth(-damage + figthSystem.armor * 0.1f);
+            playerHealth.ChangeHealth(-damage );
             damageWasDone = true;
 
         }

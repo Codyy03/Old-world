@@ -4,7 +4,7 @@ using UnityEngine;
 using DialogueEditor;
 public class CementaryGuardPart : MonoBehaviour
 {
-    public Quest quest;
+    public Quest quest,reserchCementary;
     NPCConversation conversation;
 
     ShowNotification notification;
@@ -22,6 +22,16 @@ public class CementaryGuardPart : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (reserchCementary.afterTalkWithSomebody && notification.distance <= notification.distanceToShow && Input.GetKeyDown(KeyCode.E))
+            ConversationManager.Instance.StartConversation(conversation);
+
+        if (ConversationManager.Instance.IsConversationActive)
+        {
+            ConversationManager.Instance.SetBool("EnabledCarrier", quest.exitQuest);
+            ConversationManager.Instance.SetBool("CanEnterToCementary", reserchCementary.afterTalkWithSomebody);
+
+        }
+
         if (!quest.afterTalkWithSomebody || !quest.beforeExitQuestTalk)
             return;
 
@@ -31,8 +41,7 @@ public class CementaryGuardPart : MonoBehaviour
            
         }
 
-        if(ConversationManager.Instance.IsConversationActive)
-            ConversationManager.Instance.SetBool("EnabledCarrier", quest.exitQuest); 
+     
     }
 
     public void ExitQuest()

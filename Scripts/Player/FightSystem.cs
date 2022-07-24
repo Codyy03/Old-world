@@ -38,11 +38,13 @@ public class FightSystem : MonoBehaviour
 
     void Update()
     {
-        if (OpenShop.shopIsOpen || Loot.lootIsOpen)
+        if (OpenShop.shopIsOpen || Loot.lootIsOpen || OpenObject.objectIsOpen)
             return;
-        if (gameManager.inventoryIsOpen || gameManager.menuIsOpen)
+        if (gameManager.inventoryIsOpen || gameManager.menuIsOpen || gameManager.questPanelIsOpen)
             return;
         if (!playerController.isGrounded())
+            return;
+        if (PlayerHealth.isDead)
             return;
         if (ConversationManager.Instance.IsConversationActive)
             return;
@@ -66,7 +68,8 @@ public class FightSystem : MonoBehaviour
             if(poisonController.howManyUses>=1)
             poisonController.ChangeUsesValue();
             
-            if (poisonController.poisonCanBeUsed && !poisonIsOnEnemy)
+            // jezeli trcizna jest na mieczu i jeszcze nie znajduje sie na przeciwniku, zatruj go i zmien kolor na zielony(nie ca³kiem)
+            if (poisonController.howManyUses>=1 && !poisonIsOnEnemy)
             {
                 poisonIsOnEnemy = true;
                 enemy.GetComponent<SpriteRenderer>().color= new Color32(130, 248, 136, 255);
@@ -80,15 +83,17 @@ public class FightSystem : MonoBehaviour
     }
 
 
+    // poczekaj okreslona ilosc czasu, nastepnie zadaj przeciwnikowi obra¿enia i zmien kolor na normalny
    IEnumerator WaitToEndPoison(GameObject enemys)
     {
         yield return new WaitForSeconds(poisonController.timeOfAction);
         if (enemys != null)
         {
             poisonIsOnEnemy = false;
-            enemys.GetComponent<EnemyHealth>().ChangeEnemyHealth(-7);
+            enemys.GetComponent<EnemyHealth>().ChangeEnemyHealth(-10);
+            enemys.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
         }
-        enemys.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+       
        
     }
     void Attack()
@@ -99,10 +104,7 @@ public class FightSystem : MonoBehaviour
            
             playerAnimations.ChangeAnimationState(playerAnimations.playerAttacks[Random.Range(0,3)]);
             SwordAttack(-damage);
-
         }
-
-       
     }
     void Defend()
     {
@@ -121,9 +123,6 @@ public class FightSystem : MonoBehaviour
     {
         Gizmos.DrawWireSphere(attackPoint.position, range);
     }
-
-
-
 
     public void EndAttack()
     {

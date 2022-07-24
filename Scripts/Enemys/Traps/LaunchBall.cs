@@ -13,7 +13,7 @@ public class LaunchBall : MonoBehaviour
 
     Rigidbody2D rb;
     PlayerHealth playerHealth;
-    FightSystem fightSystem;
+  
 
     PlayerAnimations playerAnimations;
     AudioManager audioManager;
@@ -25,7 +25,7 @@ public class LaunchBall : MonoBehaviour
       
         calculateDistance = GetComponent<CalculateDistance>();
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-        fightSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<FightSystem>();
+        
         audioManager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
         playerAnimations = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAnimations>();
 
@@ -51,7 +51,7 @@ public class LaunchBall : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerHealth.ChangeHealth(-damage + fightSystem.armor * 0.1f);
+            playerHealth.ChangeHealth(-damage );
             playerAnimations.Block();
         }
 

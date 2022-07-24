@@ -8,14 +8,15 @@ public class EnemyHealth : MonoBehaviour
    
     [SerializeField] GameObject lootPrefab;
 
+   [HideInInspector] public float health;
     public bool isDead;
     public float maxHealth;
-    private float health;
 
     EnemyAnimations enemyAnimation;
-    
+    SaveEnemy saveEnemy;
     void Start()
     {
+        saveEnemy = GetComponent<SaveEnemy>();
         health = maxHealth;
         enemyAnimation = GetComponent<EnemyAnimations>();
     }
@@ -23,7 +24,7 @@ public class EnemyHealth : MonoBehaviour
    
     void Update()
     {
-
+        
     }
 
     public void ChangeEnemyHealth(float value)
@@ -35,6 +36,10 @@ public class EnemyHealth : MonoBehaviour
         
         if (health <= 0)
         {
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            saveEnemy.Save();
+
             enemyAnimation.ChangeAnimationState(enemyAnimation.dead);
             isDead=true;
             InstantiateLoot(lootPrefab);

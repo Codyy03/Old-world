@@ -6,8 +6,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject inventory, playerUI, questPanel, menu;
     
-    public bool inventoryIsOpen, menuIsOpen;
-    bool questPanelIsOpen;
+    public bool inventoryIsOpen, menuIsOpen, questPanelIsOpen;
+    public float playTime;
     void Start()
     {
         
@@ -16,7 +16,10 @@ public class GameManager : MonoBehaviour
     // Update is called oncerame
     void Update()
     {
-        if (ConversationManager.Instance.IsConversationActive)
+        playTime += Time.deltaTime;
+        if (ConversationManager.Instance.IsConversationActive )
+            return;
+        if (PlayerHealth.isDead)
             return;
 
         OpenMenu();
@@ -64,7 +67,7 @@ public class GameManager : MonoBehaviour
         {
             SetActive(inventory, false);
             SetActive(playerUI, true);
-
+            inventory.transform.GetChild(4).gameObject.SetActive(false);
             inventoryIsOpen = false;
         }
     }

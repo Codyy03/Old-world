@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float distanceToRun, distanceToAttack,timeToNextAttack;
     [SerializeField] LayerMask layer;
+    [SerializeField] float yValueInRaycast;
     public bool isLeft;
 
 
@@ -50,6 +51,13 @@ public class EnemyController : MonoBehaviour
         if (health.isDead )
             return;
 
+        if (PlayerHealth.isDead)
+        {
+            audioSource.Stop();
+            return;
+        }
+      
+
         Movement();
     }
 
@@ -80,8 +88,9 @@ public class EnemyController : MonoBehaviour
 
         if (distance <= distanceToRun && !isAttacking && !CheckIfIsCloseToOtherEnemy())
         {
-
+           
             enemyAnimation.ChangeAnimationState(enemyAnimation.walk);
+
             rb.MovePosition(lookDirection);
 
             if (!audioSource.isPlaying)
@@ -100,8 +109,7 @@ public class EnemyController : MonoBehaviour
         }
         else if (distance > distanceToRun || CheckIfIsCloseToOtherEnemy())
         {
-            enemyAnimation.ChangeAnimationState(enemyAnimation.idle);
-            audioSource.Stop();
+            EnemyWalk();
         }
 
 
@@ -121,7 +129,11 @@ public class EnemyController : MonoBehaviour
 
         }
     }
-
+    void EnemyWalk()
+    {
+        enemyAnimation.ChangeAnimationState(enemyAnimation.idle);
+        audioSource.Stop();
+    }
     IEnumerator WaitToAttack()
     {
         yield return new WaitForSeconds(timeToNextAttack); isAttacking = false;
@@ -130,7 +142,7 @@ public class EnemyController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(255, 255, 255);
-        Gizmos.DrawRay(transform.position + new Vector3(0.7f, 1f, 0), Vector2.right*1);
+        Gizmos.DrawRay(transform.position + new Vector3(0.7f, yValueInRaycast, 0), Vector2.right*1);
     }
 
     public bool CheckIfIsCloseToOtherEnemy()
@@ -142,7 +154,7 @@ public class EnemyController : MonoBehaviour
         else if (angle > 0)
             direction = 1;
 
-        hit = Physics2D.Raycast(transform.position + new Vector3(0.7f * direction, 1f, 0), Vector2.right * direction, 1, layer);
+        hit = Physics2D.Raycast(transform.position + new Vector3(0.7f * direction, yValueInRaycast, 0), Vector2.right * direction, 1, layer);
         bool isClose = false;
 
         if (hit.collider != null)

@@ -12,7 +12,7 @@ public class Player_UI : MonoBehaviour
     [SerializeField]  DropItemToFastAccess dropItem1, dropItem2;
     [SerializeField] FastAccessUi fastAccessUi1, fastAccessUi2;
 
-    public Image healthBar; 
+    Image healthBar;
     int howManyUsesR=0, howManyUsesF=0;
     
 
@@ -28,16 +28,17 @@ public class Player_UI : MonoBehaviour
     void Start()
     {
         inventory = GameObject.Find("InventoryManager").GetComponent<InventorySystem>();
-     
-    
+
+        healthBar = GameObject.Find("Health Bar player").GetComponent<Image>();
         audioManager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-  
+        
     }
 
     // Update is called once per
     void Update()
     {
+       
         // sprawdza ile jest mikstur pod slotem 1 (R)
         if (dropItem1.actualUseID != 0)
             howManyUsesR = inventory.HowManyItemsInSlot(dropItem1.actualUseID);
@@ -79,6 +80,7 @@ public class Player_UI : MonoBehaviour
     }
     public void ChangeHealth(float value)
     {
+       
         healthBar.fillAmount = value;
 
     }

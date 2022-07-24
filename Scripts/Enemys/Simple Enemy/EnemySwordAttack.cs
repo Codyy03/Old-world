@@ -11,20 +11,22 @@ public class EnemySwordAttack : MonoBehaviour
     public float damage;
 
     Vector2 attackPointPosition;
-    FightSystem fightSystem;
     AudioManager audioManager;
     EnemyController enemyController;
     void Start()
     {
-        fightSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<FightSystem>();
+    
         audioManager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
         enemyController = GetComponent<EnemyController>();
         attackPointPosition = attackPoint.localPosition;
     }
 
-    // Update is called once per frame
+    // Update is called once per fr
     void Update()
     {
+        if (enemyController == null)
+            return;
+
         if (enemyController.isLeft)
             SetAttackPointDierctionIfIsLeft();
 
@@ -56,7 +58,7 @@ public class EnemySwordAttack : MonoBehaviour
         foreach (Collider2D player in hit)
         {
 
-            player.GetComponent<PlayerHealth>().ChangeHealth(damage+ fightSystem.armor * 0.1f);
+            player.GetComponent<PlayerHealth>().ChangeHealth(damage);
             player.GetComponent<PlayerAnimations>().Block();
 
         }

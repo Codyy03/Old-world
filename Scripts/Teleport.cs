@@ -5,11 +5,12 @@ using UnityEngine;
 public class Teleport : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] Transform placeToTeleport,player;
+    [SerializeField] Transform placeToTeleport;
+    Transform player;
     bool canBeTeleport;
     void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame

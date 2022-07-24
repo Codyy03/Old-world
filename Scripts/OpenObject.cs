@@ -58,7 +58,7 @@ public class OpenObject : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-       
+        objectIsOpen = false;
         objectToOpen.SetActive(false);
         isOpen = false;
         canBeOpen = false;

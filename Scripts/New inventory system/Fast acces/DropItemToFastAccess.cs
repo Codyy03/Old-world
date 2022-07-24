@@ -68,7 +68,7 @@ public class DropItemToFastAccess : MonoBehaviour, IDropHandler
     // Start is called before the first frame upda
     void Start()
     {
-        if (ChooseAccess.potions == choose)
+        if (choose == ChooseAccess.potions)
             accessUI = GetComponent<FastAccessUi>();
 
         inventory = GameObject.Find("InventoryManager").GetComponent<InventorySystem>();
@@ -102,7 +102,7 @@ public class DropItemToFastAccess : MonoBehaviour, IDropHandler
     public void Load()
     {
 
-        //howManyItems = inventory.HowManyItemsInSlot(actualUseID);
+        
         for (int i = 0; i < itemToUse.Length; i++)
         {
             if(actualUseID==itemToUse[i].ID)

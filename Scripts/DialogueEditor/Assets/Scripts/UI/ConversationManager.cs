@@ -89,10 +89,7 @@ namespace DialogueEditor
         private void Awake()
         {
             // Destroy myself if I am not the singleton
-            if (Instance != null && Instance != this)
-            {
-                GameObject.Destroy(this.gameObject);
-            }
+          
             Instance = this;
 
             m_uiOptions = new List<UIConversationButton>();

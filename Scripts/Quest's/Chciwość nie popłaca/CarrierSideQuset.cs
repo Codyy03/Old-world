@@ -7,7 +7,7 @@ public class CarrierSideQuset : MonoBehaviour
     [SerializeField] AudioClip getRewordSound;
     [SerializeField] GameObject questPrefab;
     public Quest quest;
-
+    public bool hasReword;
 
     private bool questSend;
     SendQuest sendQuest;
@@ -31,7 +31,9 @@ public class CarrierSideQuset : MonoBehaviour
         {
             ConversationManager.Instance.SetBool("AfterTalkWithCarrierSide", quest.afterTalkWithSomebody);
             ConversationManager.Instance.SetBool("questAkceptedCarrier", quest.afterTalkWithSomebody);
-          
+            ConversationManager.Instance.SetBool("hasReword", hasReword);
+            ConversationManager.Instance.SetInt("MoenyToReturn", inventory.playerGold);
+            
         }
 
         if(!questSend && quest.questAccepted == 1 && !quest.exitQuest)
@@ -56,7 +58,9 @@ public class CarrierSideQuset : MonoBehaviour
 
     public void exitQuest()
     {
+        audioManager.PlayClip(getRewordSound);
         quest.exitQuest = true;
-
+        inventory.playerGold -= 80;
+        hasReword = true;
     }
 }

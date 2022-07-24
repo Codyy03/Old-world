@@ -5,7 +5,8 @@ using DialogueEditor;
 public class BanditLeader : MonoBehaviour
 {
     [SerializeField] GameObject[] bandits;
-    public Quest quest, carrierQuest;
+    [SerializeField] GameObject gate;
+    public Quest quest;
 
 
     private bool afterTalk, banditsAreDead;
@@ -21,7 +22,35 @@ public class BanditLeader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (quest.exitQuest )
+
+        if(quest.beforeExitQuestTalk)
+        {
+            for (int i = 0; i < bandits.Length; i++)
+                Destroy(bandits[i]);
+
+            gate.GetComponent<BoxCollider2D>().enabled = false;
+        }
+
+        if (bandits[0] == null && bandits[1]! == null && bandits[2] == null && !banditsAreDead)
+        {
+            banditsAreDead = true;
+
+            afterTalk = false;
+            quest.beforeExitQuestTalk = true;
+
+
+        }
+        if (ConversationManager.Instance.IsConversationActive)
+        {
+            if (banditsAreDead)
+            {
+                ConversationManager.Instance.SetBool("BnaditsAreDead", true);
+                ConversationManager.Instance.SetBool("BanditsAreDeadArmorSelle", true);
+            }
+        }
+     
+
+        if (quest.exitQuest)
             return;
 
         if (quest.questAccepted == 1)
@@ -29,6 +58,7 @@ public class BanditLeader : MonoBehaviour
         else if (quest.exitQuest )
         {
             GetComponent<ShowNotification>().enabled = false;
+            gameObject.transform.GetChild(2).gameObject.SetActive(false);
 
         }
 
@@ -39,25 +69,9 @@ public class BanditLeader : MonoBehaviour
             ConversationManager.Instance.StartConversation(conversation);
         }
 
-        if(bandits[0] == null && bandits[1]! == null && bandits[2] == null && !banditsAreDead)
-        {
-            banditsAreDead = true;
-            
-            afterTalk = false;
-            quest.beforeExitQuestTalk = true;
+       
 
-             
-        }
-
-        if (ConversationManager.Instance.IsConversationActive)
-        {
-            ConversationManager.Instance.SetBool("BeforSpeakWityBanditLead", carrierQuest.beforeExitQuestTalk);
-            ConversationManager.Instance.SetBool(" TalkAboutArmorSeller", carrierQuest.beforeExitQuestTalk);
-
-            if(banditsAreDead)
-                ConversationManager.Instance.SetBool("BnaditsAreDead", true);
-
-        }
+      
 
        
     }
@@ -71,8 +85,5 @@ public class BanditLeader : MonoBehaviour
         }
     }
 
-    public void BeforTalkWithBandit()
-    {
-        carrierQuest.beforeExitQuestTalk = true;
-    }
+   
 }

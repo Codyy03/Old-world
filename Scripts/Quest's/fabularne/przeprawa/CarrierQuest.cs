@@ -4,8 +4,10 @@ using UnityEngine;
 using DialogueEditor;
 public class CarrierQuest : MonoBehaviour
 {
-    [SerializeField] GameObject nextQuestPrefab;
+    [SerializeField] GameObject nextQuestPrefab, fastTravelCity;
+
     public Quest quest;
+    
     NPCConversation conversation;
     InventorySystem inventory;
     ShowNotification notification;
@@ -37,6 +39,9 @@ public class CarrierQuest : MonoBehaviour
 
             ConversationManager.Instance.SetBool("ExitCarrierQuest", quest.exitQuest);
         }
+
+        if (quest.exitQuest && fastTravelCity != null)
+            fastTravelCity.GetComponent<FastTravel>().enabled = true;
     }
 
     public void AfterTalkWithCarrier()
@@ -57,7 +62,7 @@ public class CarrierQuest : MonoBehaviour
         ConversationManager.Instance.SetBool("ExitCarrierQuest", quest.exitQuest);
         inventory.playerGold -= 75;
         destroyPrevius.DestroyOldQuest();
-        sendQuest.SendQuestToCanvas(nextQuestPrefab);
+        //sendQuest.SendQuestToCanvas(nextQuestPrefab);
     }
 
 }

@@ -90,10 +90,7 @@ public class ShootingEnemy : MonoBehaviour
                 audioSource.Play();
         }
 
-     
-          
 
-      
 
         if (directory.x > 0)
         SetDirectionLeft();

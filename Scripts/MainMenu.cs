@@ -5,23 +5,28 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.Audio;
+using TMPro;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] GameObject options,autros;
+    [SerializeField] TextMeshProUGUI playTimeText;
     public Slider slider, soundsSlider;
     public AudioMixer musicMixer, soundsMixer;
 
-  
+    int minuty;
+    GameManager gameManger;
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManger = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per fr
     void Update()
     {
-      
+        minuty = (int)gameManger.playTime / 60;
+        if(minuty>=1)
+        playTimeText.text = "Czas spêdzony w grze: "+ minuty +" minut";
     }
 
     public void Return()

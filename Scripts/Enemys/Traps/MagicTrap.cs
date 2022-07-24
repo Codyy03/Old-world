@@ -8,14 +8,14 @@ public class MagicTrap : MonoBehaviour
 
     public float damage;
     PlayerHealth playerHealth;
-    FightSystem fightSystem;
+   
     AudioManager audioManager;
     Animator aniamtor;
     // Start is called before the first frame update
     void Start()
     {
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-        fightSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<FightSystem>();
+        
         audioManager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
         aniamtor = GetComponent<Animator>();
     }
@@ -31,7 +31,7 @@ public class MagicTrap : MonoBehaviour
         if(collision.gameObject.CompareTag("Player"))
         {
             aniamtor.SetTrigger("Explde");
-            playerHealth.ChangeHealth(-damage + fightSystem.armor * 0.1f);
+            playerHealth.ChangeHealth(-damage);
             audioManager.PlayClip(expodeSound);
         }
     }

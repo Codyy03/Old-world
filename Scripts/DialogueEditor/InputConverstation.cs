@@ -17,13 +17,13 @@ public class InputConverstation : MonoBehaviour
         if (ConversationManager.Instance!= null && ConversationManager.Instance.IsConversationActive)
         {
 
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow)|| Input.GetKeyDown(KeyCode.W))
                 ConversationManager.Instance.SelectNextOption();
 
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
                 ConversationManager.Instance.SelectPreviousOption();
          
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
                 ConversationManager.Instance.PressSelectedOption();
 
 

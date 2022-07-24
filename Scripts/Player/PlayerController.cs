@@ -68,11 +68,12 @@ public class PlayerController : MonoBehaviour
             return;
         if (OpenShop.shopIsOpen)
             return;
+
          if (ConversationManager.Instance.IsConversationActive)
-        {
+         {
             playerAnimation.ChangeAnimationState(playerAnimation.playerIdle);
             return;
-        }
+         }
     
         
         Movement();

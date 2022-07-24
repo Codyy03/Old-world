@@ -31,6 +31,7 @@ public class EurycyQuest : MonoBehaviour
         if (quest.exitQuest)
         {
             quest.NPCInQuest[0].GetComponent<ShowNotification>().enabled = false;
+            quest.NPCInQuest[0].transform.GetChild(1).gameObject.SetActive(false);
             return;
 
         }
@@ -57,11 +58,11 @@ public class EurycyQuest : MonoBehaviour
         else
             hasNote = false;
 
-        if (quest.afterTalkWithSomebody && !quest.beforeExitQuestTalk)
+        if (quest.afterTalkWithSomebody && !quest.exitQuest)
         {
             houseDoor.GetComponent<Teleport>().enabled = true;
             houseDoor.GetComponent<ShowNotification>().enabled = true;
-        } else
+        } else 
         {
             houseDoor.GetComponent<Teleport>().enabled = false;
             houseDoor.GetComponent<ShowNotification>().enabled = false;

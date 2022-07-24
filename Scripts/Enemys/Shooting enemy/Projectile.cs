@@ -12,7 +12,7 @@ public class Projectile : MonoBehaviour
     Transform player;
     
     PlayerHealth playerHealth;
-    FightSystem fightSystem;
+  
    
     PlayerAnimations playerAnimations;
     AudioManager audioManager;
@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
        
-        fightSystem= GameObject.FindGameObjectWithTag("Player").GetComponent<FightSystem>();
+        
         playerAnimations = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAnimations>();
         audioManager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
         
@@ -39,7 +39,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerHealth.ChangeHealth(-damage + fightSystem.armor * 0.1f);
+            playerHealth.ChangeHealth(-damage );
             playerAnimations.Block();
         }
         audioManager.PlayClip(expodeSound);

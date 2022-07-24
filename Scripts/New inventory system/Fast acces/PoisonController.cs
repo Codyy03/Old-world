@@ -7,8 +7,6 @@ public class PoisonController : MonoBehaviour
 {
     [SerializeField] Sprite nullSprite, poisonSprite;
 
-    public bool poisonCanBeUsed;
-
     public float maxUses;
 
     public float howManyUses;
@@ -16,10 +14,14 @@ public class PoisonController : MonoBehaviour
     public float timeOfAction = 2f;
 
     Image poisonImage;
+    private void Awake()
+    {
+        poisonImage = GetComponent<Image>();
+    }
 
     void Start()
     {
-        poisonImage = GetComponent<Image>();
+        
        
     }
 
@@ -32,20 +34,14 @@ public class PoisonController : MonoBehaviour
 
     public void ChangeUsesValue()
     {  
-        if(howManyUses>=1)
-        poisonImage.sprite = poisonSprite;
+        if (howManyUses >= 1)
+           poisonImage.fillAmount = howManyUses / maxUses;
+        else gameObject.GetComponent<Image>().sprite = nullSprite;
 
         if (howManyUses >= 1)
-            poisonCanBeUsed = true;
-        else poisonCanBeUsed = false;
+            poisonImage.sprite = poisonSprite;
 
-        if (!poisonCanBeUsed)
-            gameObject.GetComponent<Image>().sprite = nullSprite;
-
-        if (howManyUses >= 1)
-            poisonImage.fillAmount = howManyUses / maxUses;
     }
   
 
-    
 }

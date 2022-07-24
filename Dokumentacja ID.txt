@@ -1,0 +1,41 @@
+Dokumentacja ID
+
+
+-------Miecze------
+Zardzewiały miecz ID-  10
+Miecz treningowy ID -11
+Miecz niewolnika ID -12
+Gladius ID - 13
+
+--------Zbroje----------
+Pancerz giermka ID - 100
+Pancerz bandyty ID - 101
+Ciężka zbroja myśliwego ID - 102
+Lekka zbroja myśliwego ID - 103
+Kolczuga ID - 104
+Zbroja zwiadowcy ID - 105
+
+------Rupiecie---------
+Łuk bandyty ID-200
+pierścień lucjusza (potrzebny do zadania) ID - 201
+mięso potwora  ID - 202
+Czaszka ID - 203
+Zęby człowieka ID - 204
+Kości ID - 205
+Skradziony towar ID - 206
+Pierścień ID - 207
+Naszyjnik ID - 208
+Niebieski kryształ ID - 209
+Czaszka zwierzecia ID - 210
+Skóra zwirzęcia ID - 211
+Topór demona ID - 212
+
+------ Mikstury-----------
+Mała mukstura życia ID -1
+Średnia mikstura życia ID -2
+Duża mikstura życia ID -3
+Trucizna ID - 4
+
+------ Notatki-----------
+Notatka z zadania "Przysługa" ID -400
+Notatka wygnańca ID - 401

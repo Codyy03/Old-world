@@ -11,7 +11,7 @@ public class Quest : ScriptableObject
 
     public GameObject[] NPCInQuest;
 
-    public bool  afterTalkWithSomebody,beforeExitQuestTalk,exitQuest;
+    public bool  afterTalkWithSomebody,beforeExitQuestTalk,bonus,exitQuest;
 
     public int reword;
 
